@@ -56,7 +56,13 @@
 						@endif
 					</td>
 					<td class="text-sm py-2 px-6 border-b border-grey-light text-base">
-						<button data-prediction-id="{{ $prediction->id }}" class="p-2 bg-green-light rounded font-semibold saveUserPrediction">Save</button>
+					@if(!$prediction->winning_id)
+						@if($length != '-')
+							<button data-prediction-id="{{ $prediction->id }}" class="p-2 bg-green-light rounded font-semibold saveUserPrediction">Save</button>
+						@else
+							Wait until time remaining appears.
+						@endif
+					@endif
 					</td>
 					@can('isAdmin')
 						<td class="text-sm py-2 px-6 border-b border-grey-light text-base">

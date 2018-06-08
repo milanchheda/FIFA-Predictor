@@ -95,7 +95,11 @@
 				</td>
 				<td class="text-sm py-2 px-4 border-b border-grey-light text-base">
 					@if(!$match->finished)
-						<button data-match-id="{{ $match->id }}" class="p-2 bg-green-light rounded font-semibold saveUserSelectedWinningTeam">Save</button>
+						@if($length != '-')
+							<button data-match-id="{{ $match->id }}" class="p-2 bg-green-light rounded font-semibold saveUserSelectedWinningTeam">Save</button>
+						@else
+							Wait until time remaining appears.
+						@endif
 					@else
 						{{ $teams[$match->winning_team_id] }}
 					@endif
