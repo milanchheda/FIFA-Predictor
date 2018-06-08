@@ -33,7 +33,7 @@ Route::get('leader-board', ['middleware' => 'auth', 'uses' => 'AdminController@s
 
 Route::group(['prefix' => 'admin', 'middleware' => 'can:isAdmin'], function() {
     Route::get('/', 'AdminController@index');
-    Route::get('/set-lock-times', 'AdminController@setLockTimes');
+    // Route::get('/set-lock-times', 'AdminController@setLockTimes');
     Route::post('/set-lock-times', 'AdminController@saveLockTimes');
 
     Route::post('/predictions', 'AdminController@savePredictions');

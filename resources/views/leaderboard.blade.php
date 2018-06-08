@@ -1,8 +1,9 @@
 @extends('layouts.app')
 @section('content')
-	<div class="flex items-center">
-	    <div class="md:w-2/3 md:mx-auto">
-	    	<table  class="text-left" style="border-collapse:collapse">
+	<div class="flex">
+	    <div class="w-full md:mx-8 bg-white px-8 py-6 rounded shadow mb-16">
+    		<h2 class="pb-4 text-red-dark uppercase font-semibold font-sans font-medium border-b-2 border-grey-light">Leader board</h2>
+	    	<table  class="text-left w-full" style="border-collapse:collapse">
 	    		<tr>
 	    			<th class="py-2 px-4 text-sm font-semibold font-sans font-medium uppercase bg-grey-lighter border-b border-grey-light">#</th>
 	    			<th class="py-2 px-4 text-sm font-semibold font-sans font-medium uppercase bg-grey-lighter border-b border-grey-light">Name</th>
@@ -10,9 +11,9 @@
 	    		</tr>
 	    	@foreach($leaderboard as $key => $value)
 	    		<tr>
-	    			<td class="text-sm py-2 px-2 border-b border-grey-light">{{ $loop->iteration }}</td>
-	    			<td class="text-sm py-2 px-2 border-b border-grey-light">{{ $users[$key] }}</td>
-	    			<td class="text-sm py-2 px-2 border-b border-grey-light">{{ $value }}</td>
+	    			<td class="text-sm py-2 px-2 border-b border-grey-light text-base">{{ $loop->iteration }}</td>
+	    			<td class="text-sm py-2 px-2 border-b border-grey-light text-base">{{ ucfirst($users[$key]) }}</td>
+	    			<td class="text-sm py-2 px-2 border-b border-grey-light text-base">{{ $value }}</td>
 	    		</tr>
 	    	@endforeach
 	    	</ol>

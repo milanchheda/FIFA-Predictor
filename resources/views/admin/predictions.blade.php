@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
-	<div class="flex items-center">
-	    <div class="md:w-4/5 md:mx-auto">
-	    	<h2 class="mb-4 text-red-dark uppercase font-semibold font-sans font-medium">Predictions for FIFA World Cup 2018</h2>
+	<div class="flex">
+	    <div class="w-full md:mx-8 bg-white px-8 py-6 rounded shadow mb-16">
+    		<h2 class="pb-4 text-red-dark uppercase font-semibold font-sans font-medium border-b-2 border-grey-light">Predictions</h2>
 			<table class="text-left" style="border-collapse:collapse">
 				<thead>
 					<tr>
@@ -23,10 +23,10 @@
 				<tbody>
 			@foreach($predictions as $prediction)
 				<tr>
-					<td class="text-sm py-2 px-6 border-b border-grey-light">{{ $prediction->name }}</td>
-					<td class="text-sm py-2 px-6 border-b border-grey-light">+{{ $prediction->plus }}</td>
-					<td class="text-sm py-2 px-6 border-b border-grey-light">-{{ $prediction->minus }}</td>
-					<td class="text-sm py-2 px-4 border-b border-grey-light">
+					<td class="text-sm py-2 px-6 border-b border-grey-light text-base">{{ $prediction->name }}</td>
+					<td class="text-sm py-2 px-6 border-b border-grey-light text-base">+{{ $prediction->plus }}</td>
+					<td class="text-sm py-2 px-6 border-b border-grey-light text-base">-{{ $prediction->minus }}</td>
+					<td class="text-sm py-2 px-4 border-b border-grey-light text-base">
 					@if(isset($prediction->lock_time))
 						<?php
 							$now = Carbon\Carbon::now();
@@ -36,7 +36,7 @@
 						<?php echo $length = '-'; ?>
 					@endif
 					</td>
-					<td class="text-sm py-2 px-6 border-b border-grey-light">
+					<td class="text-sm py-2 px-6 border-b border-grey-light text-base">
 						@if(!$prediction->winning_id)
 							@if($length != '-')
 								<select class="bg-white p-2 border-grey-light border userPredictedTeamId">
@@ -55,11 +55,11 @@
 							{{ isset($teams[$prediction->winning_id]) ? $teams[$prediction->winning_id] : '' }}
 						@endif
 					</td>
-					<td class="text-sm py-2 px-6 border-b border-grey-light">
+					<td class="text-sm py-2 px-6 border-b border-grey-light text-base">
 						<button data-prediction-id="{{ $prediction->id }}" class="p-2 bg-green-light rounded font-semibold saveUserPrediction">Save</button>
 					</td>
 					@can('isAdmin')
-						<td class="text-sm py-2 px-6 border-b border-grey-light">
+						<td class="text-sm py-2 px-6 border-b border-grey-light text-base">
 							@if(!$prediction->winning_id)
 								<select class="bg-white p-2 border-grey-light border predictionWinnerId">
 									@foreach($teams as $key => $value)
@@ -70,14 +70,14 @@
 								<span class="text-green font-semibold">{{ isset($teams[$prediction->winning_id]) ? $teams[$prediction->winning_id] : '' }}</span>
 							@endif
 						</td>
-						<td class="text-sm py-2 px-6 border-b border-grey-light">
+						<td class="text-sm py-2 px-6 border-b border-grey-light text-base">
 						@if(!$prediction->winning_id)
 							<button data-prediction-id="{{ $prediction->id }}" class="p-2 bg-green-light rounded font-semibold savePredictionWinner">Save</button>
 						@else
 							<span class="text-green font-semibold">Finished!</span>
 						@endif
 						</td>
-						<td class="text-sm py-2 px-4 border-b border-grey-light">
+						<td class="text-sm py-2 px-4 border-b border-grey-light text-base">
 							@if(!$prediction->winning_id)
 								<select class="p-2 bg-white border-grey border selectedPredictionLockTime">
 									<option value="10">10 minutes</option>
@@ -90,7 +90,7 @@
 								Finished
 							@endif
 						</td>
-						<td class="text-sm py-2 px-4 border-b border-grey-light">
+						<td class="text-sm py-2 px-4 border-b border-grey-light text-base">
 							@if(!$prediction->winning_id)
 								<button data-prediction-id="{{ $prediction->id }}" class="p-2 bg-green-light rounded font-semibold savePredictionLockTimes">Save</button>
 							@else

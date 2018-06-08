@@ -13,7 +13,7 @@ class PredictionsController extends Controller
     public function index() {
     	$data = [];
     	$data['teams'] = Teams::all()->pluck('name', 'id');
-    	$data['predictions'] = Predictions::all();
+    	$data['predictions'] = Predictions::where('type', 'overall')->get();
     	$data['user_predictions'] = UserOverallPredictions::where('user_id', Auth::id())->get()->pluck('user_predicted_id','prediction_id');
     	return view('admin.predictions', $data);
     }

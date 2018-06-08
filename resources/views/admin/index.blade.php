@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('content')
 
-<div class="flex items-center">
-    <div class="md:w-4/5 md:mx-auto">
-    	<h2 class="mb-4 text-red-dark uppercase font-semibold font-sans font-medium">FIFA World Cup 2018 Fixtures</h2>
+<div class="flex">
+    <div class="w-full md:mx-8 bg-white px-8 py-6 rounded shadow mb-16">
+    	<h2 class="pb-4 text-red-dark uppercase font-semibold font-sans font-medium border-b-2 border-grey-light">Fixtures</h2>
 		<table class="text-left" style="border-collapse:collapse">
 			<thead>
 				<tr>
@@ -26,15 +26,15 @@
 			<tbody>
 		@foreach($matches as $match)
 			<tr>
-				<td class="text-sm py-2 px-2 border-b border-grey-light">{{ $match->id }}</td>
-				<td class="text-sm py-2 px-4 border-b border-grey-light">
+				<td class="text-sm py-2 px-2 border-b border-grey-light text-base">{{ $match->id }}</td>
+				<td class="text-sm py-2 px-4 border-b border-grey-light text-base">
 				@if($match->home_team)
                         {{ $teams[$match->home_team] }}
                 @else
                     tbd
                 @endif
 				</td>
-				<td class="text-sm py-2 px-4 border-b border-grey-light">
+				<td class="text-sm py-2 px-4 border-b border-grey-light text-base">
 				@if($match->away_team)
                         {{ $teams[$match->away_team] }}
                 @else
@@ -43,7 +43,7 @@
 				</td>
 				<!-- <td class="text-sm py-2 px-4 border-b border-grey-light">{{ $match->date }}</td> -->
 				<!-- <td class="text-sm py-2 px-4 border-b border-grey-light">{{ $match->lock_time }}</td> -->
-				<td class="text-sm py-2 px-4 border-b border-grey-light">
+				<td class="text-sm py-2 px-4 border-b border-grey-light text-base">
 				<?php
 					$length = '';
 				?>
@@ -57,7 +57,7 @@
 					<?php echo $length = '-'; ?>
 				@endif
 				</td>
-				<td class="text-sm py-2 px-4 border-b border-grey-light">
+				<td class="text-sm py-2 px-4 border-b border-grey-light text-base">
 					@if(!$match->finished)
 						@if($length != '-')
 							<select class="p-2 bg-white border-grey border UserSelectedWinningTeamId">
@@ -93,7 +93,7 @@
 						@endif
 					@endif
 				</td>
-				<td class="text-sm py-2 px-4 border-b border-grey-light">
+				<td class="text-sm py-2 px-4 border-b border-grey-light text-base">
 					@if(!$match->finished)
 						<button data-match-id="{{ $match->id }}" class="p-2 bg-green-light rounded font-semibold saveUserSelectedWinningTeam">Save</button>
 					@else
@@ -101,17 +101,17 @@
 					@endif
 				</td>
 				@can('isAdmin')
-					<td class="text-sm py-2 px-4 border-b border-grey-light">
+					<td class="text-sm py-2 px-4 border-b border-grey-light text-base">
 						<select class="bg-white p-2 border-grey-light border matchWinnerId">
 							@foreach($teams as $key => $value)
 								<option value="{{ $key }}">{{ $value }}</option>
 							@endforeach
 						</select>
 					</td>
-					<td class="text-sm py-2 px-4 border-b border-grey-light">
+					<td class="text-sm py-2 px-4 border-b border-grey-light text-base">
 						<button data-match-id="{{ $match->id }}" class="p-2 bg-green-light rounded font-semibold saveMatchWinnerId">Save</button>
 					</td>
-					<td class="text-sm py-2 px-4 border-b border-grey-light">
+					<td class="text-sm py-2 px-4 border-b border-grey-light text-base">
 						@if(!$match->finished)
 							<select class="p-2 bg-white border-grey border selectedLockTime">
 								<option value="10">10 minutes</option>
@@ -124,7 +124,7 @@
 							Finished
 						@endif
 					</td>
-					<td class="text-sm py-2 px-4 border-b border-grey-light">
+					<td class="text-sm py-2 px-4 border-b border-grey-light text-base">
 						@if(!$match->finished)
 							<button data-match-id="{{ $match->id }}" class="p-2 bg-green-light rounded font-semibold saveLockTimes">Save</button>
 						@else
