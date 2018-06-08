@@ -30,7 +30,7 @@
                             Fixtures
                         </a>
                         <a href="{{ url('leader-board') }}" class="no-underline">
-                            Fixtures
+                            Leader board
                         </a>
                         @endif
                     </div>

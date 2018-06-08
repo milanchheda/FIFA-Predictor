@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Teams;
 use App\Matches;
 use Carbon\Carbon;
@@ -73,8 +74,17 @@ class AdminController extends Controller
     }
 
     public function showLeaderBoard() {
-        $leaderBoard = UserMatchPredictions::groupBy('user_id')->selectRaw('sum(points_obtained) as sum, user_id')->pluck('sum','user_id');
-        print_r($leaderBoard);
-        die();
+        $matchesleaderBoard = UserMatchPredictions::groupBy('user_id')->selectRaw('sum(points_obtained) as sum, user_id')->pluck('sum','user_id');
+        $overallleaderBoard = UserOverallPredictions::groupBy('user_id')->selectRaw('sum(points_obtained) as sum, user_id')->pluck('sum','user_id');
+
+        $data['users'] = User::all()->pluck('name', 'id');
+
+        foreach ($matchesleaderBoard as $key => $value) {
+            if(isset($overallleaderBoard[$key]))
+                $matchesleaderBoard[$key] += $overallleaderBoard[$key];
+        }
+
+        $data['leaderboard'] = $matchesleaderBoard;
+        return view('leaderboard', $data);
     }
 }

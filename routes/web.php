@@ -23,13 +23,13 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/predictions', 'PredictionsController@index');
-Route::post('/predictions', 'PredictionsController@saveUserPrediction');
+Route::get('/predictions', ['middleware' => 'auth', 'uses' => 'PredictionsController@index']);
+Route::post('/predictions', ['middleware' => 'auth', 'uses' => 'PredictionsController@saveUserPrediction']);
 
-Route::get('/fixtures', 'FixturesController@index');
-Route::post('/fixtures', 'FixturesController@saveUserSelections');
+Route::get('/fixtures', ['middleware' => 'auth', 'uses' => 'FixturesController@index']);
+Route::post('/fixtures', ['middleware' => 'auth', 'uses' => 'FixturesController@saveUserSelections']);
 
-Route::get('leader-board', 'AdminController@showLeaderBoard');
+Route::get('leader-board', ['middleware' => 'auth', 'uses' => 'AdminController@showLeaderBoard']);
 
 Route::group(['prefix' => 'admin', 'middleware' => 'can:isAdmin'], function() {
     Route::get('/', 'AdminController@index');
