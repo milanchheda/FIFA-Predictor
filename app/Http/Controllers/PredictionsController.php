@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Teams;
+use App\Players;
 use App\Predictions;
 use Illuminate\Http\Request;
 use App\UserOverallPredictions;
@@ -13,7 +14,8 @@ class PredictionsController extends Controller
     public function index() {
     	$data = [];
     	$data['teams'] = Teams::all()->pluck('name', 'id');
-    	$data['predictions'] = Predictions::where('type', 'overall')->get();
+        $data['players'] = Players::all()->pluck('name', 'id');
+    	$data['predictions'] = Predictions::whereIn('type', ['overall', 'players'])->get();
     	$data['user_predictions'] = UserOverallPredictions::where('user_id', Auth::id())->get()->pluck('user_predicted_id','prediction_id');
     	return view('admin.predictions', $data);
     }

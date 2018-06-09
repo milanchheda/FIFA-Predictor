@@ -44,17 +44,21 @@
 				<!-- <td class="text-sm py-2 px-4 border-b border-grey-light">{{ $match->date }}</td> -->
 				<!-- <td class="text-sm py-2 px-4 border-b border-grey-light">{{ $match->lock_time }}</td> -->
 				<td class="text-sm py-2 px-4 border-b border-grey-light text-base">
-				<?php
-					$length = '';
-				?>
-
-				@if(isset($match->lock_time))
+				@if(!$match->finished)
 					<?php
-						$now = Carbon\Carbon::now();
-						echo $length = Carbon\Carbon::parse($match->lock_time)->diffForHumans($now);
+						$length = '';
 					?>
+
+					@if(isset($match->lock_time))
+						<?php
+							$now = Carbon\Carbon::now();
+							echo $length = Carbon\Carbon::parse($match->lock_time)->diffForHumans($now);
+						?>
+					@else
+						<?php echo $length = '-'; ?>
+					@endif
 				@else
-					<?php echo $length = '-'; ?>
+					<span class="text-green font-semibold">Finished!</span>
 				@endif
 				</td>
 				<td class="text-sm py-2 px-4 border-b border-grey-light text-base">

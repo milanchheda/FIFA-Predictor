@@ -7,6 +7,11 @@
 
 require('./bootstrap');
 
+import $ from 'jquery';
+window.$ = window.jQuery = $;
+
+import 'jquery-ui/ui/widgets/autocomplete.js';
+
 window.Vue = require('vue');
 
 /**
@@ -45,9 +50,12 @@ $(document).on('click', '.savePredictionLockTimes', function(){
 });
 
 $(document).on('click', '.savePredictionWinner', function(){
+    var selectedId = $(this).parents("tr:first").find('.predictionWinnerId').val();
+    if($(this).data('prediction-type') == 'players')
+        selectedId = $('#userPredictedPlayerId').val();
 	axios.post('/admin/predictions', {
         id: $(this).data('prediction-id'),
-        predictionWinnerId: $(this).parents("tr:first").find('.predictionWinnerId').val()
+        predictionWinnerId: selectedId
     })
     .then(function (response) {
     	alert('Saved Successfully.');
@@ -56,14 +64,21 @@ $(document).on('click', '.savePredictionWinner', function(){
 });
 
 $(document).on('click', '.saveUserPrediction', function(){
-	axios.post('predictions', {
-        id: $(this).data('prediction-id'),
-        userPredictedTeamId: $(this).parents("tr:first").find('.userPredictedTeamId').val()
-    })
-    .then(function (response) {
-    	alert('Saved Successfully.');
-		location.reload();
-    });
+    var selectedId = $(this).parents("tr:first").find('.userPredictedTeamId').val();
+    if($(this).data('prediction-type') == 'players')
+        selectedId = $('#userPredictedPlayerId').val();
+    if(selectedId != '') {
+        axios.post('predictions', {
+            id: $(this).data('prediction-id'),
+            userPredictedTeamId: selectedId
+        })
+        .then(function (response) {
+            alert('Saved Successfully.');
+            location.reload();
+        });
+    } else {
+        alert("Please select some value.");
+    }
 });
 
 $(document).on('click', '.saveUserSelectedWinningTeam', function(){
@@ -88,4 +103,14 @@ $(document).on('click', '.saveMatchWinnerId', function(){
         alert(response.data.message);
         location.reload();
     });
+});
+
+$(".players").autocomplete({
+    source: "get-players",
+    minLength: 3,
+    select: function( event, ui ) {
+        console.log(ui);
+        console.log(ui.item);
+        $('#userPredictedPlayerId').val(ui.item.id);
+    }
 });

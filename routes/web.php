@@ -31,6 +31,8 @@ Route::post('/fixtures', ['middleware' => 'auth', 'uses' => 'FixturesController@
 
 Route::get('leader-board', ['middleware' => 'auth', 'uses' => 'AdminController@showLeaderBoard']);
 
+Route::get('get-players', ['middleware' => 'auth', 'uses' => 'AdminController@getPlayers']);
+
 Route::group(['prefix' => 'admin', 'middleware' => 'can:isAdmin'], function() {
     Route::get('/', 'AdminController@index');
     // Route::get('/set-lock-times', 'AdminController@setLockTimes');

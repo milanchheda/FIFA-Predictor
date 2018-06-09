@@ -27,38 +27,50 @@
 					<td class="text-sm py-2 px-6 border-b border-grey-light text-base">+{{ $prediction->plus }}</td>
 					<td class="text-sm py-2 px-6 border-b border-grey-light text-base">-{{ $prediction->minus }}</td>
 					<td class="text-sm py-2 px-4 border-b border-grey-light text-base">
-					@if(isset($prediction->lock_time))
-						<?php
-							$now = Carbon\Carbon::now();
-							echo $length = Carbon\Carbon::parse($prediction->lock_time)->diffForHumans($now);
-						?>
+					@if(!$prediction->winning_id)
+						@if(isset($prediction->lock_time))
+							<?php
+								$now = Carbon\Carbon::now();
+								echo $length = Carbon\Carbon::parse($prediction->lock_time)->diffForHumans($now);
+							?>
+						@else
+							<?php echo $length = '-'; ?>
+						@endif
 					@else
-						<?php echo $length = '-'; ?>
+						<span class="text-green font-semibold">Finished!</span>
 					@endif
 					</td>
 					<td class="text-sm py-2 px-6 border-b border-grey-light text-base">
 						@if(!$prediction->winning_id)
 							@if($length != '-')
-								<select class="bg-white p-2 border-grey-light border userPredictedTeamId">
-									@foreach($teams as $key => $value)
-										@if(isset($user_predictions[$prediction->id]) && $key === $user_predictions[$prediction->id])
-											<option value="{{ $key }}" selected="selected">{{ $value }}</option>
-										@else
-											<option value="{{ $key }}">{{ $value }}</option>
-										@endif
-									@endforeach
-								</select>
+								@if($prediction->type == 'overall')
+									<select class="bg-white p-2 border-grey-light border userPredictedTeamId">
+										@foreach($teams as $key => $value)
+											@if(isset($user_predictions[$prediction->id]) && $key === $user_predictions[$prediction->id])
+												<option value="{{ $key }}" selected="selected">{{ $value }}</option>
+											@else
+												<option value="{{ $key }}">{{ $value }}</option>
+											@endif
+										@endforeach
+									</select>
+								@else
+									<input type="text" name="userPredictedPlayerId" class="players border-grey-light border p-2 w-48" />
+								@endif
 								@else
 									Wait until time remaining appears.
 								@endif
 						@else
-							{{ isset($teams[$prediction->winning_id]) ? $teams[$prediction->winning_id] : '' }}
+							@if($prediction->type == 'overall')
+								{{ isset($teams[$prediction->winning_id]) ? $teams[$prediction->winning_id] : '' }}
+							@else
+								{{ isset($players[$prediction->winning_id]) ? $players[$prediction->winning_id] : '' }}
+							@endif
 						@endif
 					</td>
 					<td class="text-sm py-2 px-6 border-b border-grey-light text-base">
 					@if(!$prediction->winning_id)
 						@if($length != '-')
-							<button data-prediction-id="{{ $prediction->id }}" class="p-2 bg-green-light rounded font-semibold saveUserPrediction">Save</button>
+							<button data-prediction-id="{{ $prediction->id }}" class="p-2 bg-green-light rounded font-semibold saveUserPrediction" data-prediction-type="{{ $prediction->type }}">Save</button>
 						@else
 							Wait until time remaining appears.
 						@endif
@@ -67,18 +79,26 @@
 					@can('isAdmin')
 						<td class="text-sm py-2 px-6 border-b border-grey-light text-base">
 							@if(!$prediction->winning_id)
-								<select class="bg-white p-2 border-grey-light border predictionWinnerId">
-									@foreach($teams as $key => $value)
-										<option value="{{ $key }}">{{ $value }}</option>
-									@endforeach
-								</select>
+								@if($prediction->type == 'overall')
+									<select class="bg-white p-2 border-grey-light border predictionWinnerId">
+										@foreach($teams as $key => $value)
+											<option value="{{ $key }}">{{ $value }}</option>
+										@endforeach
+									</select>
+								@else
+									<input type="text" name="winningPredictedPlayerId" class="players border-grey-light border p-2 w-48" />
+								@endif
 							@else
-								<span class="text-green font-semibold">{{ isset($teams[$prediction->winning_id]) ? $teams[$prediction->winning_id] : '' }}</span>
+								@if($prediction->type == 'overall')
+									<span class="text-green font-semibold">{{ isset($teams[$prediction->winning_id]) ? $teams[$prediction->winning_id] : '' }}</span>
+								@else
+									<span class="text-green font-semibold">{{ isset($players[$prediction->winning_id]) ? $players[$prediction->winning_id] : '' }}</span>
+								@endif
 							@endif
 						</td>
 						<td class="text-sm py-2 px-6 border-b border-grey-light text-base">
 						@if(!$prediction->winning_id)
-							<button data-prediction-id="{{ $prediction->id }}" class="p-2 bg-green-light rounded font-semibold savePredictionWinner">Save</button>
+							<button data-prediction-id="{{ $prediction->id }}" class="p-2 bg-green-light rounded font-semibold savePredictionWinner" data-prediction-type="{{ $prediction->type }}">Save</button>
 						@else
 							<span class="text-green font-semibold">Finished!</span>
 						@endif
@@ -108,6 +128,7 @@
 			@endforeach
 				</tbody>
 			</table>
+			<input type="text" name="userPredictedPlayerId" id="userPredictedPlayerId" disabled="disabled" class="hidden" />
 		</div>
 	</div>
 @endsection
