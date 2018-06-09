@@ -31,7 +31,7 @@
  * @import "components/buttons";
  * @import "components/forms";
  */
-
+@import '~jquery-ui/themes/base/all.css';
 /**
  * This injects all of Tailwind's utility classes, generated based on your
  * config file.
@@ -56,4 +56,8 @@
  * @import "utilities/background-patterns";
  * @import "utilities/skew-transforms";
  */
-@import '~jquery-ui/themes/base/all.css';
+
+
+body .ui-autocomplete {
+	background-color: white !important;
+}

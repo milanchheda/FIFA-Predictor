@@ -12830,9 +12830,8 @@ __WEBPACK_IMPORTED_MODULE_0_jquery___default()(document).on('click', '.saveMatch
 __WEBPACK_IMPORTED_MODULE_0_jquery___default()(".players").autocomplete({
     source: "get-players",
     minLength: 3,
+    appendTo: '#players-autocomplete-container',
     select: function select(event, ui) {
-        console.log(ui);
-        console.log(ui.item);
         __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#userPredictedPlayerId').val(ui.item.id);
     }
 });

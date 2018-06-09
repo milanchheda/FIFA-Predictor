@@ -108,6 +108,7 @@ $(document).on('click', '.saveMatchWinnerId', function(){
 $(".players").autocomplete({
     source: "get-players",
     minLength: 3,
+    appendTo: '#players-autocomplete-container',
     select: function( event, ui ) {
         $('#userPredictedPlayerId').val(ui.item.id);
     }

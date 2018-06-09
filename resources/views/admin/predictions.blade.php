@@ -128,6 +128,7 @@
 			@endforeach
 				</tbody>
 			</table>
+			<div id="players-autocomplete-container" style="position:absolute; width: 200px;"></div>
 			<input type="text" name="userPredictedPlayerId" id="userPredictedPlayerId" disabled="disabled" class="hidden" />
 		</div>
 	</div>
