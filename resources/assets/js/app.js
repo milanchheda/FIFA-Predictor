@@ -109,8 +109,6 @@ $(".players").autocomplete({
     source: "get-players",
     minLength: 3,
     select: function( event, ui ) {
-        console.log(ui);
-        console.log(ui.item);
         $('#userPredictedPlayerId').val(ui.item.id);
     }
 });
