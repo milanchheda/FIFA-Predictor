@@ -3,6 +3,7 @@
 
 <div class="flex">
     <div class="w-full md:mx-8 bg-white px-8 py-6 rounded shadow mb-16">
+    	<div class="p-2 bg-blue-lightest border-blue-lighter border rounded mb-4">For every correct selection you get <span class="text-green">+100</span> and <span class="text-red">-25</span> if incorrect.</div>
     	<h2 class="pb-4 text-red-dark uppercase font-semibold font-sans font-medium border-b-2 border-grey-light">Fixtures</h2>
 		<table class="text-left w-full" style="border-collapse:collapse">
 			<thead>
