@@ -67,6 +67,7 @@
 						@if($length != '-')
 							<select class="p-2 bg-white border-grey border UserSelectedWinningTeamId">
 								<option>Please select</option>
+								<option value="-1" {{ $user_predictions[$match->id] == -1 ? "selected='selected'" : '' }}>Draw</option>
 								@if($match->home_team)
 									@if(isset($user_predictions[$match->id]) && $user_predictions[$match->id] == $match->home_team)
 				            			<option value="{{ $match->home_team }}" selected="selected">{{ $teams[$match->home_team] }}</option>
@@ -106,12 +107,13 @@
 							Wait until time remaining appears.
 						@endif
 					@else
-						{{ $teams[$match->winning_team_id] }}
+						{{ $match->winning_team_id == -1 ? 'Draw' : $teams[$match->winning_team_id] }}
 					@endif
 				</td>
 				@can('isAdmin')
 					<td class="text-sm py-2 px-4 border-b border-grey-light text-base">
 						<select class="bg-white p-2 border-grey-light border matchWinnerId">
+							<option value="-1">Draw</option>
 							@foreach($teams as $key => $value)
 								<option value="{{ $key }}">{{ $value }}</option>
 							@endforeach
