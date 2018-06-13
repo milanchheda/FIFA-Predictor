@@ -92,7 +92,9 @@
 							Wait until time remaining appears.
 						@endif
 					@else
-						@if(isset($user_predictions[$match->id]) && $user_predictions[$match->id] == $match->home_team)
+						@if($match->id == -1)
+							Draw
+						@elseif(isset($user_predictions[$match->id]) && $user_predictions[$match->id] == $match->home_team)
 							{{ $teams[$match->home_team] }}
 						@else
 							{{ $teams[$match->away_team] }}
