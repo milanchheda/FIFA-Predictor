@@ -31,7 +31,7 @@
 						@if(isset($prediction->lock_time))
 							<?php
 								$now = Carbon\Carbon::now();
-								echo $length = Carbon\Carbon::parse($prediction->lock_time)->diffForHumans($now);
+								echo $length = Carbon\Carbon::parse($prediction->lock_time)->diffForHumans($now, false, false, 6);
 							?>
 						@else
 							<?php echo $length = '-'; ?>
@@ -54,7 +54,7 @@
 										@endforeach
 									</select>
 								@else
-									<input type="text" name="userPredictedPlayerId" class="players border-grey-light border p-2 w-48" />
+									<input type="text" name="userPredictedPlayerId" class="players border-grey-light border p-2 w-48" value="{{ isset($user_predictions[$prediction->id]) ? $players[$user_predictions[$prediction->id]] : '' }}" />
 								@endif
 								@else
 									Wait until time remaining appears.

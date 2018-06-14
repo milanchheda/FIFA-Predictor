@@ -92,6 +92,7 @@ class AdminController extends Controller
 
     public function getPlayers(Request $request) {
         $players = Players::where('name', 'like', '%' . $request->term . '%')->get()->pluck('name', 'id');
+        $return_array = [];
         foreach ($players as $key => $value) {
             $return_array[] = array('value' => $value, 'id' =>$key);
         }

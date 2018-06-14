@@ -53,7 +53,7 @@
 					@if(isset($match->lock_time))
 						<?php
 							$now = Carbon\Carbon::now();
-							echo $length = Carbon\Carbon::parse($match->lock_time)->diffForHumans($now);
+							echo $length = Carbon\Carbon::parse($match->lock_time)->diffForHumans($now, false, false, 6);
 						?>
 					@else
 						<?php echo $length = '-'; ?>
