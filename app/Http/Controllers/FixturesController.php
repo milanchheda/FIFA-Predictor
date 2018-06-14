@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class FixturesController extends Controller
 {
     public function index() {
-    	$matches = Matches::select('id', 'home_team', 'away_team', 'date', 'lock_time', 'finished', 'winning_team_id')->get();
+    	$matches = Matches::select('id', 'home_team', 'away_team', 'date', 'lock_time', 'finished', 'winning_team_id')->orderBy('date', 'asc')->get();
         $data = [];
         $data['matches'] = $matches;
         $data['teams'] = Teams::all()->pluck('name', 'id', 'iso2');
