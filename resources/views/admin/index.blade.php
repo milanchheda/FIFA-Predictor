@@ -52,8 +52,8 @@
 
 					@if(isset($match->lock_time))
 						<?php
-							$now = Carbon\Carbon::now();
-							echo $length = Carbon\Carbon::parse($match->lock_time)->diffForHumans($now, false, false, 6);
+							$now = Carbon\Carbon::now('Asia/Kolkata');
+							echo $length = Carbon\Carbon::parse($now)->diffForHumans($match->lock_time, false, false, 4);
 						?>
 					@else
 						<?php echo $length = '-'; ?>
