@@ -11,12 +11,21 @@
 	    		</tr>
 	    	@foreach($leaderboard as $key => $value)
 	    		<tr>
-	    			<td class="text-sm py-2 px-2 border-b border-grey-light text-base">{{ $loop->iteration }}</td>
+	    			<?php
+						$shapeClass = 'shape4';
+						if($loop->index == 0)
+							$shapeClass = 'shape1';
+						elseif($loop->index == 1)
+							$shapeClass = 'shape2';
+						elseif($loop->index == 2)
+							$shapeClass = 'shape3';
+						?>
+	    			<td class="text-sm py-2 px-2 border-b border-grey-light text-base"><span class=<?php echo $shapeClass; ?>></span></td>
 	    			<td class="text-sm py-2 px-2 border-b border-grey-light text-base">{{ ucfirst($users[$key]) }}</td>
 	    			<td class="text-sm py-2 px-2 border-b border-grey-light text-base">{{ $value }}</td>
 	    		</tr>
 	    	@endforeach
-	    	</ol>
+	    	</table>
 	    </div>
 	</div>
 @endsection

@@ -7164,6 +7164,41 @@ body .ui-autocomplete {
   background-color: white !important;
 }
 
+.shape1,
+.shape2,
+.shape3,
+.shape4 {
+  max-width: 100%;
+  background-size: 100%;
+  background-image: url('/images/winner-list.png');
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 14px;
+  margin-right: 5px;
+}
+
+.shape1 {
+  background-position: 0 0%;
+  background-size: 100%;
+}
+
+.shape2 {
+  background-position: 0 33.333333%;
+  background-size: 100%;
+}
+
+.shape3 {
+  background-position: 0 66.666667%;
+  background-size: 100%;
+}
+
+.shape4 {
+  background-position: 0 100%;
+  background-size: 100%;
+}
+
 @media (min-width: 576px) {
   .sm\:list-reset {
     list-style: none;
