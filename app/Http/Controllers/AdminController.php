@@ -80,13 +80,16 @@ class AdminController extends Controller
         $overallleaderBoard = UserOverallPredictions::groupBy('user_id')->selectRaw('sum(points_obtained) as sum, user_id')->pluck('sum','user_id');
 
         $data['users'] = User::all()->pluck('name', 'id');
-
+        $newArray = [];
         foreach ($matchesleaderBoard as $key => $value) {
             if(isset($overallleaderBoard[$key]))
-                $matchesleaderBoard[$key] += $overallleaderBoard[$key];
+                $newArray[$key] = $matchesleaderBoard[$key] + $overallleaderBoard[$key];
+            else
+                $newArray[$key] = $matchesleaderBoard[$key];
         }
 
-        $data['leaderboard'] = $matchesleaderBoard;
+        asort($newArray, SORT_NUMERIC);
+        $data['leaderboard'] = array_reverse($newArray, true);
         return view('leaderboard', $data);
     }
 
