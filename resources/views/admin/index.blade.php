@@ -67,7 +67,7 @@
 						@if($length != '-')
 							<select class="p-2 bg-white border-grey border UserSelectedWinningTeamId">
 								<option>Please select</option>
-								<option value="-1" {{ $match->id == -1 ? "selected='selected'" : '' }}>Draw</option>
+								<option value="-1" {{ (isset($user_predictions[$match->id]) && $user_predictions[$match->id] == -1) ? "selected='selected'" : '' }}>Draw</option>
 								@if($match->home_team)
 									@if(isset($user_predictions[$match->id]) && $user_predictions[$match->id] == $match->home_team)
 				            			<option value="{{ $match->home_team }}" selected="selected">{{ $teams[$match->home_team] }}</option>
