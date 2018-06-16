@@ -113,3 +113,8 @@ $(".players").autocomplete({
         $('#userPredictedPlayerId').val(ui.item.id);
     }
 });
+
+
+$(document).on('click', '#showHideRows', function(){
+    $(".hidden-rows").toggle();
+});

@@ -4,7 +4,7 @@
 <div class="flex">
     <div class="w-full md:mx-8 bg-white px-8 py-6 rounded shadow mb-16">
     	<div class="p-2 bg-blue-lightest border-blue-lighter border rounded mb-4">For every correct selection you get <span class="text-green">+100</span> and <span class="text-red">-25</span> if incorrect.</div>
-    	<h2 class="pb-4 text-red-dark uppercase font-semibold font-sans font-medium border-b-2 border-grey-light">Fixtures</h2>
+    	<h2 class="pb-4 text-red-dark uppercase font-semibold font-sans font-medium border-b-2 border-grey-light">Fixtures <span id="showHideRows" class="text-sm text-blue underline cursor-pointer">(Show / Hide Matches)</span></h2>
 		<table class="text-left w-full" style="border-collapse:collapse">
 			<thead>
 				<tr>
@@ -26,8 +26,11 @@
 			</thead>
 			<tbody>
 		@foreach($matches as $match)
-			<tr>
-				<td class="text-sm py-2 px-2 border-b border-grey-light text-base">{{ $match->id }}</td>
+			<?php
+				$now = Carbon\Carbon::now('Asia/Kolkata');
+			?>
+			<tr class="hidden-rows {{ ($match->finished != 0 || $now > $match->lock_time) ? 'hidden' : '' }}">
+				<td class="text-sm py-2 px-2 border-b border-grey-light text-base">{{ $loop->index + 1 }}</td>
 				<td class="text-sm py-2 px-4 border-b border-grey-light text-base">
 				@if($match->home_team)
                         {{ $teams[$match->home_team] }}
@@ -53,7 +56,10 @@
 					@if(isset($match->lock_time))
 						<?php
 							$now = Carbon\Carbon::now('Asia/Kolkata');
-							echo $length = Carbon\Carbon::parse($now)->diffForHumans($match->lock_time, false, false, 4);
+							if($now > $match->lock_time)
+								echo $length = '-';
+							else
+								echo $length = Carbon\Carbon::parse($now)->diffForHumans($match->lock_time, false, false, 4);
 						?>
 					@else
 						<?php echo $length = '-'; ?>

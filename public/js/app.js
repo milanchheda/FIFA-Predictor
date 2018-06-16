@@ -12836,6 +12836,10 @@ __WEBPACK_IMPORTED_MODULE_0_jquery___default()(".players").autocomplete({
     }
 });
 
+__WEBPACK_IMPORTED_MODULE_0_jquery___default()(document).on('click', '#showHideRows', function () {
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()(".hidden-rows").toggle();
+});
+
 /***/ }),
 /* 17 */
 /***/ (function(module, exports, __webpack_require__) {
