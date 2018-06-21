@@ -31,7 +31,10 @@
 						@if(isset($prediction->lock_time))
 							<?php
 								$now = Carbon\Carbon::now();
-								echo $length = Carbon\Carbon::parse($prediction->lock_time)->diffForHumans($now, false, false, 6);
+								if($now > $prediction->lock_time)
+									echo $length = '-';
+								else
+									echo $length = Carbon\Carbon::parse($prediction->lock_time)->diffForHumans($now, false, false, 6);
 							?>
 						@else
 							<?php echo $length = '-'; ?>
