@@ -60,7 +60,7 @@
 									<input type="text" name="userPredictedPlayerId" class="players border-grey-light border p-2 w-48" value="{{ isset($user_predictions[$prediction->id]) ? $players[$user_predictions[$prediction->id]] : '' }}" />
 								@endif
 								@else
-									{{ isset($teams[$user_predictions[$prediction->id]]) ? $teams[$user_predictions[$prediction->id]] : 'Wait until time remaining appears.' }}
+									{{ isset($user_predictions[$prediction->id]) ? $teams[$user_predictions[$prediction->id]] : 'Wait until time remaining appears.' }}
 								@endif
 						@else
 							@if($prediction->type == 'overall')
