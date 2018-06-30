@@ -8,6 +8,7 @@
 	    			<th class="py-2 px-4 text-sm font-semibold font-sans font-medium uppercase bg-grey-lighter border-b border-grey-light">#</th>
 	    			<th class="py-2 px-4 text-sm font-semibold font-sans font-medium uppercase bg-grey-lighter border-b border-grey-light">Name</th>
 	    			<th class="py-2 px-4 text-sm font-semibold font-sans font-medium uppercase bg-grey-lighter border-b border-grey-light">Points</th>
+	    			<th class="py-2 px-4 text-sm font-semibold font-sans font-medium uppercase bg-grey-lighter border-b border-grey-light">Earnings</th>
 	    		</tr>
 	    	@foreach($leaderboard as $key => $value)
 	    		<tr>
@@ -23,6 +24,27 @@
 	    			<td class="text-sm py-2 px-2 border-b border-grey-light text-base"><span class=<?php echo $shapeClass; ?>></span></td>
 	    			<td class="text-sm py-2 px-2 border-b border-grey-light text-base">{{ ucfirst($users[$key]) }}</td>
 	    			<td class="text-sm py-2 px-2 border-b border-grey-light text-base">{{ $value }}</td>
+	    			<td class="text-sm py-2 px-2 border-b border-grey-light text-base">
+	    				<?php
+	    				switch ($loop->index) {
+	    					case 0:
+	    						echo '₹ 5,000';
+	    						break;
+	    					case 1:
+	    						echo '₹ 3,000';
+	    						break;
+	    					case 2:
+	    						echo '₹ 2,000';
+	    						break;
+	    					case 3:
+	    						echo '₹ 1,000';
+	    						break;
+	    					default:
+	    						echo 0;
+	    						break;
+	    				}
+						?>
+	    			</td>
 	    		</tr>
 	    	@endforeach
 	    	</table>
