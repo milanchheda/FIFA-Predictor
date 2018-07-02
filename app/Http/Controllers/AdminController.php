@@ -101,4 +101,41 @@ class AdminController extends Controller
         }
         return Response::json($return_array);
     }
+
+    public function fixScores() {
+        $userIds = User::where('id', '!=', 1)->pluck('id')->toArray();
+        $matches = Matches::where('finished', 1)->get()->pluck('id')->toArray();
+        $predictions = Predictions::whereNotNull('winning_id')->get()->pluck('id')->toArray();
+        foreach ($userIds as $key => $value) {
+            $userMatchIds = UserMatchPredictions::where('user_id', $value)->orderBy('match_id')->get()->pluck('match_id')->toArray();
+            $resultArray = array_diff($matches, $userMatchIds);
+            if(isset($resultArray) && !empty($resultArray)) {
+                foreach ($resultArray as $k => $v) {
+                    UserMatchPredictions::create(
+                        [
+                        'user_id' => $value,
+                        'match_id' => $v,
+                        'user_selected_team_id' => -2,
+                        'points_obtained' => -25
+                        ]
+                    );
+                }
+            }
+
+            $userOverallMatchIds = UserOverallPredictions::where('user_id', $value)->orderBy('prediction_id')->get()->pluck('prediction_id')->toArray();
+            $overallResultArray = array_diff($predictions, $userOverallMatchIds);
+            if(isset($overallResultArray) && !empty($overallResultArray)) {
+                foreach ($overallResultArray as $ok => $ov) {
+                    UserOverallPredictions::create(
+                        [
+                        'user_id' => $value,
+                        'prediction_id' => $ov,
+                        'user_predicted_id' => -2,
+                        'points_obtained' => -50
+                        ]
+                    );
+                }
+            }
+        }
+    }
 }
