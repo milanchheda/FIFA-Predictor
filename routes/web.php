@@ -42,4 +42,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'can:isAdmin'], function() {
     Route::post('/save-prediction-lock-times', 'AdminController@savePredictionLockTime');
 
     Route::get('/fix-it', 'AdminController@fixScores');
+    Route::get('/check-fix', 'AdminController@checkifNeedFix');
+
 });

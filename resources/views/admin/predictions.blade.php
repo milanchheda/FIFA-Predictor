@@ -30,7 +30,7 @@
 					@if(!$prediction->winning_id)
 						@if(isset($prediction->lock_time))
 							<?php
-								$now = Carbon\Carbon::now();
+								$now = Carbon\Carbon::now('Asia/Kolkata');
 								if($now > $prediction->lock_time)
 									echo $length = '-';
 								else
@@ -114,6 +114,9 @@
 									<option value="30">30 minutes</option>
 									<option value="45">45 minutes</option>
 									<option value="60">60 minutes</option>
+									<option value="120">120 minutes</option>
+									<option value="180">180 minutes</option>
+									<option value="240">240 minutes</option>
 								</select>
 							@else
 								Finished
