@@ -117,6 +117,10 @@
 									<option value="120">120 minutes</option>
 									<option value="180">180 minutes</option>
 									<option value="240">240 minutes</option>
+									<option value="300">300 minutes</option>
+									<option value="360">360 minutes</option>
+									<option value="420">420 minutes</option>
+									<option value="480">480 minutes</option>
 								</select>
 							@else
 								Finished
