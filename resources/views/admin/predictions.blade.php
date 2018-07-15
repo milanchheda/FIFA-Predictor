@@ -60,11 +60,15 @@
 									<input type="text" name="userPredictedPlayerId" class="players border-grey-light border p-2 w-48" value="{{ isset($user_predictions[$prediction->id]) ? $players[$user_predictions[$prediction->id]] : '' }}" />
 								@endif
 								@else
-									@if($prediction->type == 'overall')
-										{{ isset($teams[$user_predictions[$prediction->id]]) ? $teams[$user_predictions[$prediction->id]] : '' }}
+									@can('isAdmin')
+										ADMIN
 									@else
-										{{ isset($players[$user_predictions[$prediction->id]]) ? $players[$user_predictions[$prediction->id]] : '' }}
-									@endif
+										@if($prediction->type == 'overall')
+											{{ isset($teams[$user_predictions[$prediction->id]]) ? $teams[$user_predictions[$prediction->id]] : '' }}
+										@else
+											{{ isset($players[$user_predictions[$prediction->id]]) ? $players[$user_predictions[$prediction->id]] : '' }}
+										@endif
+									@endcan
 								@endif
 						@else
 							@if($prediction->type == 'overall')
